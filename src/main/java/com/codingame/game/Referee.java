@@ -149,7 +149,7 @@ public class Referee extends AbstractReferee {
         int x = parseInt(outputs[2]);
         int y = parseInt(outputs[3]);
 
-        if (!board.inBoundsBarrier(y*2,x*2, orientation)){
+        if (!board.inBoundsBarrier(y,x, orientation)){
             throw new Exception("provided invalid barrier coordinates.");
         }
 
