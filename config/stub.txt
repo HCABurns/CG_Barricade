@@ -1,0 +1,6 @@
+read h:int w:int
+read x1:int y1:int
+read x2:int y2:int
+gameloop
+read previousAction:string(32)
+write MOVE x y | BARRIER VERT/HOR x y

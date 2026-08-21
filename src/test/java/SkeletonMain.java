@@ -3,27 +3,24 @@ import com.codingame.gameengine.runner.MultiplayerGameRunner;
 public class SkeletonMain {
     public static void main(String[] args) {
 
-        // Uncomment this section and comment the other one to create a Solo Game
-        /* Solo Game */
-        // SoloGameRunner gameRunner = new SoloGameRunner();
-
-        // Sets the player
-        // gameRunner.setAgent(Player1.class);
-
-        // Sets a test case
-        // gameRunner.setTestCase("test1.json");
-
         /* Multiplayer Game */
         MultiplayerGameRunner gameRunner = new MultiplayerGameRunner();
 
-        // Adds as many player as you need to test your game
-        gameRunner.addAgent(Agent1.class);
+        // Actual simulator of playing
+        //gameRunner.addAgent(Agent1.class);
         gameRunner.addAgent(Agent2.class);
+        //gameRunner.addAgent("java config\\AIGeneratedBoss.java");
+        //gameRunner.addAgent("java config\\AIBadBoss.java");
+        gameRunner.addAgent("python config\\Boss.py");
 
-        // Another way to add a player
-        // gameRunner.addAgent("python3 /home/user/player.py");
-        
+        // Used for visuals for the statement.
+        //gameRunner.addAgent(StatementImages1.class);
+        //gameRunner.addAgent(StatementImages2.class);
 
         gameRunner.start();
     }
 }
+
+
+// Another way to add a player
+// gameRunner.addAgent("python3 /home/user/player.py");

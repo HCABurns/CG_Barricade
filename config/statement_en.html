@@ -1,16 +1,36 @@
 <div id="statement_back" class="statement_back" style="display:none"></div>
 <div class="statement-body">
+
+  <div class="statement-section statement-goal">
+    
+    <h1>
+      <span class="icon">⚠️ &nbsp;</span>
+      <span>Still todo:</span>
+    </h1>
+
+    <ul>
+      <li>Add appropriate/descriptive error messages</li>
+      <li>UI overhaul + Update statement visuals with new UI</li>
+      <li>Consider levels?
+         <ul>
+           <li>Variable barrier count</li>
+           <li>7x7 for level 1, 9x9 for 2? - Pinko Pallino</li>
+           <li>Allow only orthogonal movement for level 1 and diagonal+jumps for future levels?</li>
+           <li>Both players starting on the same Y?</li>
+          </ul>
+      </li>
+      <li>Create boss / bosses - currently a basic rules based AI</li>
+    </ul>
+    </div>
+
   <!-- GOAL -->
   <div class="statement-section statement-goal">
     <h1>
       <span class="icon icon-goal">&nbsp;</span>
-      <span>The Goal</span>
+      <span>Goal</span>
     </h1>
     <div class="statement-goal-content">
-      The aim of this game is to win.
-      <br>
-      <br>
-      For this question, you will be asked to output a single line as a solution.
+      Barricade is a port of the turn-based board game <a href="https://en.wikipedia.org/wiki/Quoridor">Quoridor</a>. Advance your pawn, block your rival with barriers, and win by reaching your goal zone first.
     </div>
   </div>
   <!-- RULES -->
@@ -20,113 +40,218 @@
       <span>Rules</span>
     </h1>
     <div>
-      <div class="statement-rules-content">Your program receives characters.<br>
-        Your actions have an effect.<br>
-        <br>
-        The game zone works as follows:
-        <ul>
-          <li>There are coordinates.</li>
-        </ul>
-        <br>
-        The units work as follows:
-        <ul>
-          <li>They move around.</li>
-        </ul>
-        You <strong>lose</strong> if:
-        <ul>
-          <li>You mess up.</li>
-          <li>You do not supply a valid sequence of actions.</li>
+      <div class="statement-rules-content">
+          <p>The game is played on a grid.</p>
+          <p>Each turn a player can perform either a <b>MOVE</b> or a <b>BARRIER</b> action.</p>
+          <p>If neither player reaches their goal zone in the turn limit, the game is considered a draw.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ACTIONS -->
+  <div class="statement-section statement-expertrules">
+    <h1>
+      <span class="icon">🎬&nbsp;</span>
+      <span>Actions</span>
+    </h1>
+    <div class="statement-expert-rules-content">
+      The two actions that are available each turn are:
+        <action>MOVE x y</action> or <action>BARRIER ORIENTATION x y</action><br>
+        The <action>MOVE</action> command is used to move a player's pawn around the grid.<br>
+        The <action>BARRIER</action> command is used to place barriers on the grid.
+    </div>
+  </div>
+
+
+  <!-- MOVEMENT -->
+  <div class="statement-section statement-expertrules">
+    <h1>
+      <span class="icon">🏃🏽&nbsp;</span>
+      <span>Movement Rules</span>
+    </h1>
+    <div class="statement-content">
+
+      <p>To move a pawn, a player uses the
+      <action>MOVE x y</action> command.
+      The coordinates (<var>x</var>, <var>y</var>) refer to the tile
+      where the player wants their pawn to finish.</p>
+
+  <p><b>Basic Movement:</b><br>
+  Players can move their pawn one space orthogonally (<code>UP</code>, <code>DOWN</code>, <code>LEFT</code>, or <code>RIGHT</code>) into an adjacent empty tile. The pawn cannot pass through/over a placed barrier or go outside the grid boundaries. Only one player can occupy any single tile at any point. In the event the opponent blocks a player's pawn from moving in a single orthogonal direction, they may be able to move via <b>jumping</b> or <b>diagonally</b>.</p>
+
+  <div class="statement-inout">
+    <div class="statement-inout-out" style="text-align: center; max-width:50%">Basic orthogonal movements available.<br><br><img height = "150" src="https://i.ibb.co/KzqTtJ25/image1.png" alt = "example image 1"></div>
+    
+    <div class="statement-inout-out" style="text-align: center; max-width:50%">Basic orthogonal movements available as a result of restricted movement caused by barriers.<br><br><img height = "150" src="https://i.ibb.co/pBGLWcqt/image2.png" alt = "example image 2"></div>
+    </div>
+
+  <p><b>Jumping over an Opponent:</b><br>
+
+When your pawn is directly adjacent to the opponent's pawn (orthogonally), you may <b>jump over</b> them into the tile directly behind them using a single <action>MOVE</action> command. You cannot jump over an opponent if there is a barrier between you and them, a barrier directly behind them, or if the jump would move your pawn outside the grid boundaries.</p>
+
+  <div class="statement-inout">
+    <div class="statement-inout-out" style="text-align: center; max-width:100%">Visualisation depicting which situation allows for a jump movement to occur as well as when it's not. <i>Black bars indicate the edge of the board.</i><br><br><img height = "150" src="https://i.ibb.co/mVmjgd7Q/image3.png" alt = "example image 3"></div>
+    </div>
+
+  <p><b>Diagonal Movement:</b><br>
+
+If a straight jump over the opponent is blocked by a <b>barrier directly behind the opponent</b> or the <b>edge of the board</b>, they may instead make a <b>diagonal move</b>. A diagonal move allows you to step into either of the two tiles adjacent to the opponent's pawn, provided no barrier blocks the path between the opponent's pawn and that diagonal space. <i>Note: You cannot make a diagonal move if the straight jump behind the opponent is completely clear.</i></p>
+
+  <div class="statement-inout">
+    <div class="statement-inout-out" style="text-align: center; max-width:100%">All diagonal movement options.<br><br><img height = "150" src="https://i.ibb.co/SX2pdbXL/image4.png" alt = "example image 4"></div>
+    </div>
+
+</div>
+
+  </div>
+
+  <!-- BARRIERS -->
+  <div class="statement-section statement-expertrules">
+    <h1>
+      <span class="icon">🚧&nbsp;</span>
+      <span>Barrier Rules</span>
+    </h1>
+
+<p>Barriers are placed into the grid to prevent players from moving between the tiles it blocks. Each player has a total of <b>10</b> barriers that they have access to place during a game. There is no restriction on the number of each orientation of barriers, a player can be use any combination of vertical or horizontal barriers.</p>
+
+  <p>  A player can place a vertical or horizontal barrier onto the grid by using: <action>BARRIER ORIENTATION x y</action>. <var>ORIENTATION</var> is either <var>VERT</var> which indicates a <b>vertical</b> barrier or <var>HOR</var> which indicates a <b>horizontal</b> barrier.
+</p>
+
+    <p><b>Barrier Coordinate System:</b><br>
+Barriers occupy the grooves between tiles and always span a length of exactly <b>2 tiles</b>. Placement coordinates <var>(x, y)</var> refer to the barrier's starting point:</p>
+
+<ul>
+  <li><b>Vertical Barrier (<const>VERT</const>):</b> Placed along the right edge of tiles (<var>x</var>,<var>y</var>) and (<var>x</var>,<var>y</var>+1), separating column <var>x</var> from column <var>x</var>+1.</li>
+  <li><b>Horizontal Barrier (<const>HOR</const>):</b> Placed along the bottom edge of tiles (<var>x</var>,<var>y</var>) and (<var>x</var>+1,<var>y</var>), separating row <var>y</var> from row <var>y</var>+1.</li>
+</ul>
+
+<p>Valid coordinates for placing a barrier range from <var>x</var>=0 to <var>w</var>-2 and <var>y</var>=0 to <var>h</var>-2.</p>
+
+    <p><b>Barrier Placement Rules:</b><br>
+
+<ul>
+  <li><b>No Overlap:</b> A barrier cannot be placed directly or partially on top of an existing barrier segment. Nor can a vertical barrier and a horizontal barrier cannot share the same midpoint point.</li>
+  <li><b>No Complete Blocking:</b> A barrier cannot completely block either player from reaching their respective goal row.</li>
+</ul>
+
+    <!-- Barrier Placement Example Images -->
+  <div class="statement-inout">
+    
+    <div class="statement-inout-out" style="text-align: center; max-width:50%">Example of invalid barrier placements. Horizontal and vertical barriers both share the same midpoint and thus is invalid placement.<br><br><img height = "150" src="https://i.ibb.co/VpC7KB34/image8.png" alt = "example image 2"></div>
+
+    <div class="statement-inout-out" style="text-align: center; max-width:50%">Example of three barriers that may appear to be overlapping but have separate midpoints.<br><br><img height = "150" src="https://i.ibb.co/XkyvTskF/image7.png" alt = "example image 2"></div>
+    </div>
+    <div class="statement-inout">
+
+    <div class="statement-inout-out" style="text-align: center; max-width:50%">Showing example coordinate for placing horizontal barriers.<br><br><img height = "150" src="https://i.ibb.co/cSQNgmcR/image6.png" alt = "example image 4"></div>
+    <div class="statement-inout-out" style="text-align: center; max-width:50%">Showing example coordinate for placing vertical barriers.<br><br><img height = "150" src="https://i.ibb.co/PGwC7HXj/image5.png" alt = "example image 4"></div>
+  </div>
+
+
+  <!-- Goal Zone -->
+  <div class="statement-expert-rules-content">
+    <h1>
+      <span class="icon">🥅&nbsp;</span>
+      <span>Goal Zone</span>
+    </h1>
+      <p>Your goal zone is the row of tiles on the opposite side of the board from where your pawn starts. The objective is to move your pawn into <b>any</b> tile within the goal zone. If a players starting pawns row is <var>y</var>=0, their goal zone is <var>y</var>=<var>h</var>-1. Alternatively, if a players starting pawns row is <var>y</var>=<var>h</var>-1, their goal zone is <var>y</var>=0.
+    </div>
+
+  </div>
+
+  <!-- WARNING -->
+  <div class="statement-section statement-warning">
+
+   <!-- VICTORY CONDITIONS -->
+  <div class="statement-victory-conditions">
+    <div class="icon victory"></div>
+    <div class="blk">
+      <div class="title">Victory Conditions</div>
+      <div class="text">
+        <ul style="padding-bottom: 0;">
+          <li>
+            Your pawn reaches your goal zone before the opponents pawn reach their goal zone.
+          </li>
         </ul>
       </div>
     </div>
   </div>
-  <!-- EXPERT RULES -->
-  <div class="statement-section statement-expertrules">
-    <h1>
-      <span class="icon icon-expertrules">&nbsp;</span>
-      <span>Expert Rules</span>
-    </h1>
-    <div class="statement-expert-rules-content">
-      If you're going to run local simulations, you'll need to know this!
-    </div>
-  </div>
-  <!-- EXAMPLES -->
-  <div class="statement-section statement-examples">
-    <h1>
-      <span class="icon icon-example">&nbsp;</span>
-      <span>Example</span>
-    </h1>
 
-    <div class="statement-examples-text">
-      A basic situation, an instruction, a result.
+  <!-- Loss CONDITIONS -->
+  <div class="statement-lose-conditions">
+    <div class="icon lose"></div>
+    <div class="blk">
+      <div class="title">Loss Conditions</div>
+      <div class="text">
+        <ul style="padding-bottom: 0;">
+          <li>Your program does not provide a command in the alloted time or one of the commands is invalid.
+</li>
+        </ul>
+      </div>
     </div>
+  </div>
+
+<div class="statement-section statement-rules" style="padding-bottom:0px">
+  <h3 style="font-size:16px;font-weight:700;padding-top:20px;color:#838891;">
+  🐞 Debug Mode</h3>
+  
+  <p class="statement-rules-content" style="padding-top:10px"> Enable the debug mode using the settings icon <img style="opacity:.8;background:#20252a;" height="18" src="https://www.codingame.com/servlet/fileservlet?id=3463235186409" width="18" alt="setting icon"> to provide extra information when hovering over tiles and barriers in the viewer.</p>
+  </div> 
 
   </div>
-  <!-- WARNING -->
-  <div class="statement-section statement-warning">
-    <h1>
-      <span class="icon icon-warning">&nbsp;</span>
-      <span>Note</span>
-    </h1>
-    <div class="statement-warning-content">
-      <b>Don’t forget to run the tests by launching them from the “Test cases” window</b>. You can submit at any time
-      to recieve a score against the training validators. <b>You can submit as many times as you like</b>. Your most
-      recent submission will be used for the final ranking.<br>
-      <br>
-      <strong>Warning:</strong> the validation tests used to compute the final score are not the same as the ones used
-      during the event.
-      Harcoded solutions will not score highly.<br>
-      <br>
-      Don't hesitate to change the viewer's options to help debug your code (<img style="opacity:.8;background:#20252a;"
-        height="18" src="https://www.codingame.com/servlet/fileservlet?id=3463235186409" width="18">).
-    </div>
-  </div>
-  <!-- PROTOCOL -->
+  <!-- GAME INPUT -->
   <div class="statement-section statement-protocol">
     <h1>
       <span class="icon icon-protocol">&nbsp;</span>
       <span>Game Input</span>
     </h1>
-    <!-- Protocol block -->
-    <div class="blk">
-      <div class="text">The program must first read the initialization data from standard input. Then, provide to the
-        standard output one line with ...</div>
-    </div>
 
-    <!-- Protocol block -->
+    <!-- Initial Input block -->
     <div class="blk">
-      <div class="title">Input</div>
+      <div class="title">Initialization Input
+</div>
       <div class="text">
-        <p><span class="statement-lineno">Line 1: </span>one string <var>...</var>, the ...</p>
+        <p><span class="statement-lineno">Line 1: </span>Space separated integers <var>h</var> <var>w</var> representing the height and width of the grid.</p>
+        <p><span class="statement-lineno">Line 2: </span> Space separated integers <var>x1</var> <var>y1</var> representing the starting coordinates of <b>YOUR</b> pawn.</p>
+        <p><span class="statement-lineno">Line 3: </span> Space separated integers <var>x2</var> <var>y2</var> representing the starting coordinates of the <b>OPPONENT'S</b> pawn.</p>
       </div>
     </div>
 
-    <!-- Protocol block -->
+    <!-- Input per turn block -->
     <div class="blk">
-      <div class="title">Output</div>
+      <div class="title">Input per turn</div>
       <div class="text">
-        <span class="statement-lineno">A single line</span> containing ...
-        <br>
+        <p><span class="statement-lineno">Line 1: </span>The action performed by the other player during their turn, in one of the forms:</p>
+
+        <ul>
+          <li> <const>MOVE</const> <var>x</var> <var>y</var> - This indicates the other player moved their pawn to the coordinates (<var>x</var>,<var>y</var>).</li>
+          <li> <const>BARRIER</const> <var>orientation</var> <var>x</var> <var>y</var> - This indicates the other player placed a barrier starting at coordinates (<var>x</var>,<var>y</var>) in the direction indicated by <var>orientation.</var></li>
+        </ul>
+        
+        <p> <em>The first turn input will be the string (<const>null</const>) which indicates this player has the first turn.</em> </p>
       </div>
     </div>
 
-    <!-- Protocol block -->
+    <!-- Output per turn block -->
+    <div class="blk">
+      <div class="title">Output per turn</div>
+      <div class="text">
+        <span class="statement-lineno">A single line</span> of one the the available actions:
+        <li> <const>MOVE</const> <var>x</var> <var>y</var> - Where the integers <var>x</var> and <var>y</var> indicates the coordinates (<var>x</var>,<var>y</var>) for the player to move their pawn to.</li>
+          <li> <const>BARRIER</const> <var>orientation</var> <var>x</var> <var>y</var> - Places a barrier starting at coordinates (<var>x</var>,<var>y</var>) in the direction indicated by <var>orientation.</var></li>
+        </ul>    
+      </div>
+    </div>
+
+    <!-- Constraint block -->
     <div class="blk">
       <div class="title">Constraints</div>
-      <div class="text"><var>...</var> contains between 1 and 500 characters.<br>
-        <br>Allotted response time to output
-        is ≤ <const>2</const> seconds.</div>
-    </div>
-  </div>
-  <!-- STORY -->
-  <div class="statement-story-background">
-    <div class="statement-story-cover" style="background-size: cover; background-image: url(https://www.codingame.com/servlet/fileservlet?id=2210505809934)">
-      <div class="statement-story">
-        <h1>Title</h1>
-        <div class="story-text">Story
-          <br>
-          Totally optional</div>
-      </div>
+        <div class="text"> ? ≤ <var>h</var>, <var>w</var> ≤ ?<br>
+          <var>orientation</var> is either <const>VERT</const> or <const>HOR</const>. <br>
+          First turn response time limit is <const>1000</const> ms.<br>
+          Subsequent turn response time limit is <const>150</const> ms.<br>
+          Turn limit is <const>200</const> turns.
+        </div>
     </div>
   </div>
 </div>
