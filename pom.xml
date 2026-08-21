@@ -1,25 +1,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.codingame.com</groupId>
-	<artifactId>skeleton</artifactId>
-	<version>1.0-SNAPSHOT</version>
+    <groupId>com.codingame.game</groupId>
+    <artifactId>patchwork</artifactId>
+    <version>1.0</version>
 
     <properties>
-        <gamengine.version>4.2.1</gamengine.version>
+        <gamengine.version>4.4.4</gamengine.version> <!-- 3.15.1 -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.codingame.gameengine</groupId>
+            <artifactId>module-tooltip</artifactId>
+            <version>${gamengine.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.codingame.gameengine</groupId>
+            <artifactId>module-viewport</artifactId>
+            <version>${gamengine.version}</version>
+            <!-- The version must be > 3.7.0 -->
+        </dependency>
+
         <dependency>
             <groupId>com.codingame.gameengine</groupId>
             <artifactId>core</artifactId>
             <version>${gamengine.version}</version>
         </dependency>
 
-        <dependency>   
+        <dependency>
+            <groupId>com.codingame.gameengine</groupId>
+            <artifactId>module-toggle</artifactId>
+            <version>${gamengine.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.codingame.gameengine</groupId>
             <artifactId>module-entities</artifactId>
             <version>${gamengine.version}</version>
@@ -31,4 +51,5 @@
             <version>${gamengine.version}</version>
         </dependency>
     </dependencies>
+
 </project>
