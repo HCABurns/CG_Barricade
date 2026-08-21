@@ -9,18 +9,19 @@
     </h1>
 
     <ul>
-      <li>Add appropriate/descriptive error messages</li>
       <li>UI overhaul + Update statement visuals with new UI</li>
       <li>Consider levels?
          <ul>
-           <li>Variable barrier count</li>
-           <li>7x7 for level 1, 9x9 for 2? - Pinko Pallino</li>
+           <li>Variable barrier count and lengths?</li>
+           <li>7x7 for level 1, 9x9 for 2? 11x11 with more barriers?</li>
+           <li>Each have 2 pawns, win if either or both reach goal zone + allow 2 actions per turn?</li>
            <li>Allow only orthogonal movement for level 1 and diagonal+jumps for future levels?</li>
            <li>Both players starting on the same Y?</li>
           </ul>
       </li>
       <li>Create boss / bosses - currently a basic rules based AI</li>
     </ul>
+    Any thoughts are welcome 🙂
     </div>
 
   <!-- GOAL -->
@@ -30,7 +31,8 @@
       <span>Goal</span>
     </h1>
     <div class="statement-goal-content">
-      Barricade is a port of the turn-based board game <a href="https://en.wikipedia.org/wiki/Quoridor">Quoridor</a>. Advance your pawn, block your rival with barriers, and win by reaching your goal zone first.
+      <p>Barricade is a port of the turn-based board game <a href="https://en.wikipedia.org/wiki/Quoridor">Quoridor</a>. Advance your pawn, block your rival with barriers, and win by reaching your goal zone first.</p>
+      <p>The referee source code can be found: <a href="https://github.com/HCABurns/CG_Barricade">here</a>.</p>
     </div>
   </div>
   <!-- RULES -->
@@ -74,7 +76,7 @@
       <p>To move a pawn, a player uses the
       <action>MOVE x y</action> command.
       The coordinates (<var>x</var>, <var>y</var>) refer to the tile
-      where the player wants their pawn to finish.</p>
+      where the player wants their pawn to move to.</p>
 
   <p><b>Basic Movement:</b><br>
   Players can move their pawn one space orthogonally (<code>UP</code>, <code>DOWN</code>, <code>LEFT</code>, or <code>RIGHT</code>) into an adjacent empty tile. The pawn cannot pass through/over a placed barrier or go outside the grid boundaries. Only one player can occupy any single tile at any point. In the event the opponent blocks a player's pawn from moving in a single orthogonal direction, they may be able to move via <b>jumping</b> or <b>diagonally</b>.</p>
@@ -90,12 +92,12 @@
 When your pawn is directly adjacent to the opponent's pawn (orthogonally), you may <b>jump over</b> them into the tile directly behind them using a single <action>MOVE</action> command. You cannot jump over an opponent if there is a barrier between you and them, a barrier directly behind them, or if the jump would move your pawn outside the grid boundaries.</p>
 
   <div class="statement-inout">
-    <div class="statement-inout-out" style="text-align: center; max-width:100%">Visualisation depicting which situation allows for a jump movement to occur as well as when it's not. <i>Black bars indicate the edge of the board.</i><br><br><img height = "150" src="https://i.ibb.co/mVmjgd7Q/image3.png" alt = "example image 3"></div>
+    <div class="statement-inout-out" style="text-align: center; max-width:100%">Visualisation depicting which situation allows for a jump movement to occur as well as when it's not. <i>Black bars indicate the edge of the grid.</i><br><br><img height = "150" src="https://i.ibb.co/mVmjgd7Q/image3.png" alt = "example image 3"></div>
     </div>
 
   <p><b>Diagonal Movement:</b><br>
 
-If a straight jump over the opponent is blocked by a <b>barrier directly behind the opponent</b> or the <b>edge of the board</b>, they may instead make a <b>diagonal move</b>. A diagonal move allows you to step into either of the two tiles adjacent to the opponent's pawn, provided no barrier blocks the path between the opponent's pawn and that diagonal space. <i>Note: You cannot make a diagonal move if the straight jump behind the opponent is completely clear.</i></p>
+If a straight jump over the opponent is blocked by a <b>barrier directly behind the opponent</b> or the <b>edge of the grid</b>, they may instead make a <b>diagonal move</b>. A diagonal move allows you to step into either of the two tiles adjacent to the opponent's pawn, provided no barrier blocks the path between the opponent's pawn and that diagonal space. <i>Note: You cannot make a diagonal move if the straight jump behind the opponent is completely clear.</i></p>
 
   <div class="statement-inout">
     <div class="statement-inout-out" style="text-align: center; max-width:100%">All diagonal movement options.<br><br><img height = "150" src="https://i.ibb.co/SX2pdbXL/image4.png" alt = "example image 4"></div>
@@ -112,7 +114,7 @@ If a straight jump over the opponent is blocked by a <b>barrier directly behind 
       <span>Barrier Rules</span>
     </h1>
 
-<p>Barriers are placed into the grid to prevent players from moving between the tiles it blocks. Each player has a total of <b>10</b> barriers that they have access to place during a game. There is no restriction on the number of each orientation of barriers, a player can be use any combination of vertical or horizontal barriers.</p>
+<p>Barriers are placed onto the grid to prevent players from moving between the tiles it blocks. Each player has a total of <b>10</b> barriers that they have access to place during a game. There is no restriction on the number of each orientation of barriers, a player can be use any combination of vertical and horizontal barriers.</p>
 
   <p>  A player can place a vertical or horizontal barrier onto the grid by using: <action>BARRIER ORIENTATION x y</action>. <var>ORIENTATION</var> is either <var>VERT</var> which indicates a <b>vertical</b> barrier or <var>HOR</var> which indicates a <b>horizontal</b> barrier.
 </p>
@@ -154,7 +156,7 @@ Barriers occupy the grooves between tiles and always span a length of exactly <b
       <span class="icon">🥅&nbsp;</span>
       <span>Goal Zone</span>
     </h1>
-      <p>Your goal zone is the row of tiles on the opposite side of the board from where your pawn starts. The objective is to move your pawn into <b>any</b> tile within the goal zone. If a players starting pawns row is <var>y</var>=0, their goal zone is <var>y</var>=<var>h</var>-1. Alternatively, if a players starting pawns row is <var>y</var>=<var>h</var>-1, their goal zone is <var>y</var>=0.
+      <p>Your goal zone is the row of tiles on the opposite side of the grid from where your pawn starts. The objective is to move your pawn into <b>any</b> tile within the goal zone. If a players starting pawns row is <var>y</var>=0, their goal zone is <var>y</var>=<var>h</var>-1. Alternatively, if a players starting pawns row is <var>y</var>=<var>h</var>-1, their goal zone is <var>y</var>=0.
     </div>
 
   </div>

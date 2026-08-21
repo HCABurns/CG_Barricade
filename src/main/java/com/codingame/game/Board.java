@@ -48,16 +48,16 @@ public class Board {
      * @param j Column index of the first barrier.
      * @return boolean - true if the barrier is within the board, otherwise false.
      */
-    public boolean inBoundsBarrier(int i, int j,Orientation orientation){
-        int i2, j2;
-        if (Objects.equals(orientation, "VERT")) {
-            i2 = 2 * i;
-            j2 = 2 * j + 1;
+    public boolean inBoundsBarrier(int i, int j, Orientation orientation){
+        if (orientation.name().equals("VERT")) {
+            i = i*2;
+            j = j*2+1;
+            return (0 <= i && i < h && 0 <= j && j < w) && (0 <= i+2 && i+2 < h);
         } else {
-            i2 = 2 * i + 1;
-            j2 = 2 * j;
+            i = 2*i + 1;
+            j = 2*j;
+            return (0 <= i && i < h && 0 <= j && j < w) && (0 <= j+2 && j+2 < w);
         }
-        return (0 <= i && i < h-1 && 0 <= j && j < w-1) && (0 <= i2 && i2 < h-1 && 0 <= j2 && j2 < w-1);
     }
 
 
