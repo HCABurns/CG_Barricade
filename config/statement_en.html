@@ -73,10 +73,9 @@
     </h1>
     <div class="statement-content">
 
-      <p>To move a pawn, a player uses the
-      <action>MOVE x y</action> command.
+      <p>To move a pawn, a player uses the <action>MOVE x y</action> command.
       The coordinates (<var>x</var>, <var>y</var>) refer to the tile
-      where the player wants their pawn to move to.</p>
+      where the player wants their pawn to move to. The top-left corner is positioned at coordinates (<const>0</const>,<const>0</const>) and the bottom-right is positioned at coordinates (<var>w</var>-1,<var>h</var>-1).</p>
 
   <p><b>Basic Movement:</b><br>
   Players can move their pawn one space orthogonally (<code>UP</code>, <code>DOWN</code>, <code>LEFT</code>, or <code>RIGHT</code>) into an adjacent empty tile. The pawn cannot pass through/over a placed barrier or go outside the grid boundaries. Only one player can occupy any single tile at any point. In the event the opponent blocks a player's pawn from moving in a single orthogonal direction, they may be able to move via <b>jumping</b> or <b>diagonally</b>.</p>
