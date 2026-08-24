@@ -2,6 +2,9 @@ package com.codingame.game;
 
 import com.codingame.gameengine.module.entities.World;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Constants {
 
     // View dimensions
@@ -23,6 +26,8 @@ public class Constants {
     public static final int CELL_SIZE = 256;
     public static final int BARRIER_SIZE = 64;
     public static final String TILE_SPRITE = "tile.png";
+    public static final String START_RED_TILE_SPRITE = "start_red.png";
+    public static final String START_BLUE_TILE_SPRITE = "start_blue.png";
     public static final String BARRIER_HOR_SPRITE = "barrierHor.png";
     public static final String BARRIER_VERT_SPRITE = "barrierVert.png";
     public static final String ACTUAL_BARRIER_VERT_SPRITE = "actualBarrierVert.png";
@@ -69,6 +74,9 @@ public class Constants {
         public boolean isJump() {return Math.abs(rowOffset) == 4 || Math.abs(colOffset) == 4;}
         public int getRowOffset() { return rowOffset; }
         public int getColOffset() { return colOffset; }
+        public static List<Direction> getOrthogonal(){return Arrays.asList(UP, DOWN, LEFT, RIGHT);}
+        public static List<Direction> getJump(){return Arrays.asList(UP_JUMP, DOWN_JUMP, LEFT_JUMP, RIGHT_JUMP);}
+        public static List<Direction> getDiagonal(){return Arrays.asList(UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT);}
     }
 
     public enum Orientation {

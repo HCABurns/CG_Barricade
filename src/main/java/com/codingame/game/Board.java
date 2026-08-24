@@ -190,6 +190,34 @@ public class Board {
         return false;
     }
 
+    /**
+     * Function to find the tiles of the possible moves for a player. Used for visual aid.
+     * @param player Player used to find possible moves for.
+     */
+    public List<Coordinate> getPossibleTiles(Player player){
+        ArrayList<Coordinate> reachableTiles = new ArrayList<>();
+        CanMove res;
+        for (Direction direction : Direction.getOrthogonal()){
+            res = canMoveOrthogonal(player, direction);
+            if (res.isCanMove()){
+                reachableTiles.add(res.nextPosition);
+            }
+        }
+        for (Direction direction : Direction.getJump()){
+            res = canMoveJump(player, direction);
+            if (res.isCanMove()){
+                reachableTiles.add(res.nextPosition);
+            }
+        }
+        for (Direction direction : Direction.getDiagonal()){
+            res = canMoveDiagonal(player, direction);
+            if (res.isCanMove()){
+                reachableTiles.add(res.nextPosition);
+            }
+        }
+        return reachableTiles;
+    }
+
 
     /**
      * Determine if a player can legally make an orthogonal movement (U, D, L, R).
