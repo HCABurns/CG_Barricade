@@ -1,6 +1,7 @@
 <div id="statement_back" class="statement_back" style="display:none"></div>
 <div class="statement-body">
 
+<!-- Todo List -->
   <div class="statement-section statement-goal">
     
     <h1>
@@ -35,6 +36,8 @@
       <p>The referee source code can be found: <a href="https://github.com/HCABurns/CG_Barricade">here</a>.</p>
     </div>
   </div>
+
+
   <!-- RULES -->
   <div class="statement-section statement-rules">
     <h1>
@@ -75,7 +78,7 @@
 
       <p>To move a pawn, a player uses the <action>MOVE x y</action> command.
       The coordinates (<var>x</var>, <var>y</var>) refer to the tile
-      where the player wants their pawn to move to. The top-left corner is positioned at coordinates (<const>0</const>,<const>0</const>) and the bottom-right is positioned at coordinates (<var>w</var>-1,<var>h</var>-1).</p>
+      where the player wants their pawn to move to. The top-left corner is positioned at coordinates (<const>0</const>,<const>0</const>) and the bottom-right is positioned at coordinates (<var>w</var><const>-1</const>,<var>h</var><const>-1</const>).</p>
 
   <p><b>Basic Movement:</b><br>
   Players can move their pawn one space orthogonally (<code>UP</code>, <code>DOWN</code>, <code>LEFT</code>, or <code>RIGHT</code>) into an adjacent empty tile. The pawn cannot pass through/over a placed barrier or go outside the grid boundaries. Only one player can occupy any single tile at any point. In the event the opponent blocks a player's pawn from moving in a single orthogonal direction, they may be able to move via <b>jumping</b> or <b>diagonally</b>.</p>
@@ -91,7 +94,7 @@
 When your pawn is directly adjacent to the opponent's pawn (orthogonally), you may <b>jump over</b> them into the tile directly behind them using a single <action>MOVE</action> command. You cannot jump over an opponent if there is a barrier between you and them, a barrier directly behind them, or if the jump would move your pawn outside the grid boundaries.</p>
 
   <div class="statement-inout">
-    <div class="statement-inout-out" style="text-align: center; max-width:100%">Visualisation depicting which situation allows for a jump movement to occur as well as when it's not. <i>Black bars indicate the edge of the grid.</i><br><br><img height = "150" src="https://i.ibb.co/mVmjgd7Q/image3.png" alt = "example image 3"></div>
+    <div class="statement-inout-out" style="text-align: center; max-width:100%">Example of jump movement options. <i>Black bars indicate the edge of the grid.</i><br><br><img height = "150" src="https://i.ibb.co/mVmjgd7Q/image3.png" alt = "example image 3"></div>
     </div>
 
   <p><b>Diagonal Movement:</b><br>
@@ -99,7 +102,7 @@ When your pawn is directly adjacent to the opponent's pawn (orthogonally), you m
 If a straight jump over the opponent is blocked by a <b>barrier directly behind the opponent</b> or the <b>edge of the grid</b>, they may instead make a <b>diagonal move</b>. A diagonal move allows you to step into either of the two tiles adjacent to the opponent's pawn, provided no barrier blocks the path between the opponent's pawn and that diagonal space. <i>Note: You cannot make a diagonal move if the straight jump behind the opponent is completely clear.</i></p>
 
   <div class="statement-inout">
-    <div class="statement-inout-out" style="text-align: center; max-width:100%">All diagonal movement options.<br><br><img height = "150" src="https://i.ibb.co/SX2pdbXL/image4.png" alt = "example image 4"></div>
+    <div class="statement-inout-out" style="text-align: center; max-width:100%">Example of the diagonal movement options. <i>Black bars indicate the edge of the grid.</i><br><br><img height = "150" src="https://i.ibb.co/SX2pdbXL/image4.png" alt = "example image 4"></div>
     </div>
 
 </div>
@@ -122,11 +125,11 @@ If a straight jump over the opponent is blocked by a <b>barrier directly behind 
 Barriers occupy the grooves between tiles and always span a length of exactly <b>2 tiles</b>. Placement coordinates <var>(x, y)</var> refer to the barrier's starting point:</p>
 
 <ul>
-  <li><b>Vertical Barrier (<const>VERT</const>):</b> Placed along the right edge of tiles (<var>x</var>,<var>y</var>) and (<var>x</var>,<var>y</var>+1), separating column <var>x</var> from column <var>x</var>+1.</li>
-  <li><b>Horizontal Barrier (<const>HOR</const>):</b> Placed along the bottom edge of tiles (<var>x</var>,<var>y</var>) and (<var>x</var>+1,<var>y</var>), separating row <var>y</var> from row <var>y</var>+1.</li>
+  <li><b>Vertical Barrier (<const>VERT</const>):</b> Placed along the right edge of tiles (<var>x</var>,<var>y</var>) and (<var>x</var>,<var>y</var><const>+1</const>), separating column <var>x</var> from column <var>x</var><const>+1</const>.</li>
+  <li><b>Horizontal Barrier (<const>HOR</const>):</b> Placed along the bottom edge of tiles (<var>x</var>,<var>y</var>) and (<var>x</var><const>+1</const>,<var>y</var>), separating row <var>y</var> from row <var>y</var><const>+1</const>.</li>
 </ul>
 
-<p>Valid coordinates for placing a barrier range from <var>x</var>=0 to <var>w</var>-2 and <var>y</var>=0 to <var>h</var>-2.</p>
+<p>Valid coordinates for placing a barrier range from <var>x</var>=<const>0</const> to <var>w</var><const>-2</const> and <var>y</var>=<const>0</const> to <var>h</var><const>-2</const>.</p>
 
     <p><b>Barrier Placement Rules:</b><br>
 
@@ -138,16 +141,17 @@ Barriers occupy the grooves between tiles and always span a length of exactly <b
     <!-- Barrier Placement Example Images -->
   <div class="statement-inout">
     
-    <div class="statement-inout-out" style="text-align: center; max-width:50%">Example of invalid barrier placements. Horizontal and vertical barriers both share the same midpoint and thus is invalid placement.<br><br><img height = "150" src="https://i.ibb.co/VpC7KB34/image8.png" alt = "example image 2"></div>
+    <div class="statement-inout-out" style="text-align: center; max-width:50%">Example of invalid barrier placements. Horizontal and vertical barriers cannot share the same midpoint.<br><br><img height = "150" src="https://i.ibb.co/VpC7KB34/image8.png" alt = "example image 2"></div>
 
     <div class="statement-inout-out" style="text-align: center; max-width:50%">Example of three barriers that may appear to be overlapping but have separate midpoints.<br><br><img height = "150" src="https://i.ibb.co/XkyvTskF/image7.png" alt = "example image 2"></div>
     </div>
+
+    <div style="text-align:center"><p>The following images show the coordinates for placing barriers, with top left corner being the tile at coordiantes (<const>0</const>,<const>0</const>):</p></div>
     <div class="statement-inout">
 
-    <div class="statement-inout-out" style="text-align: center; max-width:50%">Showing example coordinate for placing horizontal barriers.<br><br><img height = "150" src="https://i.ibb.co/cSQNgmcR/image6.png" alt = "example image 4"></div>
-    <div class="statement-inout-out" style="text-align: center; max-width:50%">Showing example coordinate for placing vertical barriers.<br><br><img height = "150" src="https://i.ibb.co/PGwC7HXj/image5.png" alt = "example image 4"></div>
+    <div class="statement-inout-out" style="text-align: center; max-width:50%">Horizontal barriers using the <var>ORIENTATION</var>=<const>HOR</const>.<br><br><img height = "150" src="https://i.ibb.co/cSQNgmcR/image6.png" alt = "example image 4"></div>
+    <div class="statement-inout-out" style="text-align: center; max-width:50%">Vertical barriers using the <var>ORIENTATION</var>=<const>VERT</const>.<br><br><img height = "150" src="https://i.ibb.co/PGwC7HXj/image5.png" alt = "example image 4"></div>
   </div>
-
 
   <!-- Goal Zone -->
   <div class="statement-expert-rules-content">
@@ -155,7 +159,7 @@ Barriers occupy the grooves between tiles and always span a length of exactly <b
       <span class="icon">🥅&nbsp;</span>
       <span>Goal Zone</span>
     </h1>
-      <p>Your goal zone is the row of tiles on the opposite side of the grid from where your pawn starts. The objective is to move your pawn into <b>any</b> tile within the goal zone. If a players starting pawns row is <var>y</var>=0, their goal zone is <var>y</var>=<var>h</var>-1. Alternatively, if a players starting pawns row is <var>y</var>=<var>h</var>-1, their goal zone is <var>y</var>=0.
+      <p>Your goal zone is the row of tiles on the opposite side of the grid from where your pawn starts. The objective is to move your pawn into <b>any</b> tile within the goal zone. If a players starting pawns row is <var>y</var>=<const>0</const>, their goal zone is <var>y</var>=<var>h</var><const>-1</const>. Alternatively, if a players starting pawns row is <var>y</var>=<var>h</var><const>-1</const>, their goal zone is <var>y</var>=<const>0</const>.
     </div>
 
   </div>
@@ -191,15 +195,18 @@ Barriers occupy the grooves between tiles and always span a length of exactly <b
       </div>
     </div>
   </div>
+</div> 
 
-<div class="statement-section statement-rules" style="padding-bottom:0px">
+<!-- Debug statments -->
+<div class="statement-section statement-rules" >
   <h3 style="font-size:16px;font-weight:700;padding-top:20px;color:#838891;">
-  🐞 Debug Mode</h3>
+  🐞 Debug Modes</h3>
   
   <p class="statement-rules-content" style="padding-top:10px"> Enable the debug mode using the settings icon <img style="opacity:.8;background:#20252a;" height="18" src="https://www.codingame.com/servlet/fileservlet?id=3463235186409" width="18" alt="setting icon"> to provide extra information when hovering over tiles and barriers in the viewer.</p>
-  </div> 
 
+  <p>Additonally, enable possible moves mode to highlight all tiles a player can move to each turn.</p>
   </div>
+
   <!-- GAME INPUT -->
   <div class="statement-section statement-protocol">
     <h1>

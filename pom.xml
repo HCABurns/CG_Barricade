@@ -7,7 +7,7 @@
     <version>1.0</version>
 
     <properties>
-        <gamengine.version>4.4.4</gamengine.version> <!-- 3.15.1 -->
+        <gamengine.version>4.4.4</gamengine.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -24,7 +24,6 @@
             <groupId>com.codingame.gameengine</groupId>
             <artifactId>module-viewport</artifactId>
             <version>${gamengine.version}</version>
-            <!-- The version must be > 3.7.0 -->
         </dependency>
 
         <dependency>

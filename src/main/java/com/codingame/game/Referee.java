@@ -62,26 +62,12 @@ public class Referee extends AbstractReferee {
 
         // Set up the board UI.
         viewer = new Viewer(graphicEntityModule, tooltips, toggleModule);
-        for (int i = 0; i < Constants.GRID_SIZE; i++){
-            for (int j = 0; j < Constants.GRID_SIZE; j++){
-                viewer.drawTile(i, j);
-                if (j != Constants.GRID_SIZE-1) {
-                    viewer.drawEmptyBarrier(i, j, Orientation.VERT);
-                }
-            }
-
-            if (i != 0) {
-                for (int j = 0; j < Constants.GRID_SIZE; j++) {
-                    viewer.drawEmptyBarrier(i, j, Orientation.HOR);
-                }
-            }
-        }
+        viewer.drawBoard();
 
         // Setup UI for players
         for (Player player : gameManager.getActivePlayers()) {
             viewer.drawPlayer(player.getGridPosition().getY(), player.getGridPosition().getX(), player.getPlayerId());
         }
-
 
         // Draw hud and scale the board.
         viewer.drawHud(gameManager.getActivePlayers());
@@ -257,6 +243,9 @@ public class Referee extends AbstractReferee {
             lastMove = outputs.get(0);
             // Check validity of the player output.
             Action action = parseAction(lastMove.split(" "), player);
+
+            //todo: Show available moves if move mode is set.
+            viewer.updateTiles(player, board.getPossibleTiles(player));
 
             // Complete the player's intended move.
             if (action.type == ActionType.MOVE) {

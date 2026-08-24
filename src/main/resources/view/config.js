@@ -20,5 +20,15 @@ export const options = [
       'OFF': false
     },
     default: true
-  })
+  }),
+
+  ToggleModule.defineToggle({
+      toggle: 'moves',
+      title: 'SHOW POSSIBLE MOVES',
+      values: {
+        'ON': true,
+        'OFF': false
+      },
+      default: true
+    })
 ]
