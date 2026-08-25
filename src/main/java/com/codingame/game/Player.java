@@ -8,8 +8,8 @@ public class Player extends AbstractMultiplayerPlayer {
     int playerId;
     int goalY = 0;
 
-    public void setPosition(Coordinate coords){
-        position = coords;
+    public void setPosition(Coordinate coordinate){
+        position = coordinate;
     }
 
     public void setPlayerId(int player_id) {
@@ -32,9 +32,6 @@ public class Player extends AbstractMultiplayerPlayer {
         return playerId;
     }
 
-    public void setBarriersRemaining(int barriersRemaining) {
-        this.barriersRemaining = barriersRemaining;
-    }
     public void removeBarrier(){barriersRemaining-=1;}
     public void setGoalY(int goalY) {
         this.goalY = goalY;

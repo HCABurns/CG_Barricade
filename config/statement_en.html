@@ -229,7 +229,7 @@ Barriers occupy the grooves between tiles and always span a length of exactly <b
     <div class="blk">
       <div class="title">Input per turn</div>
       <div class="text">
-        <p><span class="statement-lineno">Line 1: </span>The action performed by the other player during their turn, in one of the forms:</p>
+        <p><span class="statement-lineno">A single line: </span>The action performed by the other player during their turn, in one of the forms:</p>
 
         <ul>
           <li> <const>MOVE</const> <var>x</var> <var>y</var> - This indicates the other player moved their pawn to the coordinates (<var>x</var>,<var>y</var>).</li>
@@ -244,7 +244,8 @@ Barriers occupy the grooves between tiles and always span a length of exactly <b
     <div class="blk">
       <div class="title">Output per turn</div>
       <div class="text">
-        <span class="statement-lineno">A single line</span> of one the the available actions:
+        <span class="statement-lineno">A single line</span> of one of the available actions:
+        <ul>
         <li> <const>MOVE</const> <var>x</var> <var>y</var> - Where the integers <var>x</var> and <var>y</var> indicates the coordinates (<var>x</var>,<var>y</var>) for the player to move their pawn to.</li>
           <li> <const>BARRIER</const> <var>orientation</var> <var>x</var> <var>y</var> - Places a barrier starting at coordinates (<var>x</var>,<var>y</var>) in the direction indicated by <var>orientation.</var></li>
         </ul>    

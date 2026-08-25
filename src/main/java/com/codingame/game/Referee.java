@@ -25,7 +25,6 @@ public class Referee extends AbstractReferee {
     @Inject private ToggleModule toggleModule;
 
     private Board board;
-    public static String errorMessage;
     private final Coordinate[] startingPosition = {new Coordinate(0, Constants.GRID_SIZE - 1), new Coordinate(Constants.GRID_SIZE * 2 - 1 - 1, Constants.GRID_SIZE - 1)};
     private String lastMove = "NONE";
     private Viewer viewer;
@@ -210,6 +209,8 @@ public class Referee extends AbstractReferee {
             if (!board.canReachEnd(gameManager.getActivePlayers())) {
                 throw new Exception("created a barrier blocking a player from reaching their goal zone.");
             }
+            // Update players remaining barriers UI and add barriers to the board.
+            viewer.reducePlayerBarrier(player);
             viewer.drawBarrier(action.wallY, action.wallX, action.orientation, player.getPlayerId());
             player.removeBarrier();
             return true;
@@ -244,19 +245,14 @@ public class Referee extends AbstractReferee {
             // Check validity of the player output.
             Action action = parseAction(lastMove.split(" "), player);
 
-            //todo: Show available moves if move mode is set.
+            // Show available moves in viewer (Only visible if 'show movement' mode is set)
             viewer.updateTiles(player, board.getPossibleTiles(player));
 
             // Complete the player's intended move.
             if (action.type == ActionType.MOVE) {
-                boolean moved = movePlayer(player, action);
-                if (!moved) {throw new Exception("attempted an invalid move.");}
-                lastMove = "MOVE " + player.getGridPosition().getX() + " " + player.getGridPosition().getY();
+                if (!movePlayer(player, action)) {throw new Exception("attempted an invalid move.");}
             } else if (action.type == ActionType.BARRIER) {
-                boolean created = createBarrier(player, action);
-                if (!created) {throw new Exception("created an invalid barrier.");}
-                // Update players remaining barriers UI.
-                viewer.reducePlayerBarrier(player);
+                if (!createBarrier(player, action)) {throw new Exception("created an invalid barrier.");}
             }
 
             // Check if the player has won via moving into their goal row.

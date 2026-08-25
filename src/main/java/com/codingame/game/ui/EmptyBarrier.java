@@ -9,9 +9,9 @@ import java.util.Objects;
  */
 public class EmptyBarrier {
 
-    public int y;
-    public int x;
-    public Constants.Orientation orientation;
+    public final int y;
+    public final int x;
+    public final Constants.Orientation orientation;
 
     public EmptyBarrier(int y, int x, Constants.Orientation orientation){
         this.y = y;

@@ -93,7 +93,7 @@ public class Constants {
      * Class for holding information about each player's outputs.
      */
     public static class Action {
-        public ActionType type;
+        public final ActionType type;
         public Direction direction;
         public Orientation orientation;
         public int wallX;
