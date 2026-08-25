@@ -431,14 +431,13 @@ public class Board {
 
     /**
      * Class to store information regarding a movement.
-     *
      * canMove - Boolean if the move is possible or not.
      * nextPosition - Coordinate of the next position, if the move is valid.
      */
-    public class CanMove {
+    public static class CanMove {
 
-        private boolean canMove;
-        private Coordinate nextPosition;
+        private final boolean canMove;
+        private final Coordinate nextPosition;
 
         CanMove(boolean canMove, Coordinate nextPosition) {
             this.canMove = canMove;

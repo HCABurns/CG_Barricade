@@ -1,31 +1,14 @@
 import java.util.*;
 
 /**
- * Stronger Quoridor AI for CodinGame: iterative-deepening negamax with alpha-beta pruning.
- * Intended as a step up from the greedy Agent1 for testing self-play / difficulty tiers.
- *
- * Search design (tuned for a ~150ms turn budget):
- *   - Evaluation: (opponent's BFS distance to their goal) - (my BFS distance to my goal),
- *     plus a small bonus per spare wall relative to the opponent.
- *   - Wall moves are pruned to the top WALL_CANDIDATE_LIMIT by a quick single-BFS "gain"
- *     score at each node - trying all ~128 possible walls at every node is too expensive.
- *   - Walls are only generated when MIN_REMAINING_DEPTH_FOR_WALLS or more plies remain,
- *     so the most numerous (deepest) nodes only branch on pawn moves.
- *   - Iterative deepening from depth 1 up to MAX_DEPTH, with a hard wall-clock deadline;
- *     a depth that doesn't finish in time is discarded entirely (TimeUp unwinds the whole
- *     depth via exception), so the move returned always comes from a depth that completed.
- *
- * Protocol notes (see referee, assumes the canMoveJump fix is in place):
- *   - All coordinates exchanged with the referee are grid coords "x y" (x = column, y = row).
- *   - Straight jumps and diagonal jumps are both requested by sending the true landing
- *     square directly.
+ * Stronger AI GENERATED AI.
  */
 public class Agent2 {
 
     // ---- Search tuning ----
-    static final int MAX_DEPTH = 4;
-    static final int TIME_BUDGET_MS = 120; // stay safely under the referee's 150ms turn limit
-    static final int WALL_CANDIDATE_LIMIT = 8;
+    static final int MAX_DEPTH = 2;
+    static final int TIME_BUDGET_MS = 140; // stay safely under the referee's 150ms turn limit
+    static final int WALL_CANDIDATE_LIMIT = 16;
     static final int MIN_REMAINING_DEPTH_FOR_WALLS = 2;
     static final int WALL_WEIGHT = 1; // eval bonus per spare wall relative to opponent
     static final int WIN_SCORE = 100000;

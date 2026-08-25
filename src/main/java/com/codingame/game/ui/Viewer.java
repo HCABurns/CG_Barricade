@@ -3,7 +3,6 @@ package com.codingame.game.ui;
 import com.codingame.game.Constants;
 import com.codingame.game.Coordinate;
 import com.codingame.game.Player;
-import com.codingame.gameengine.core.MultiplayerGameManager;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.entities.Sprite;
@@ -19,19 +18,17 @@ import java.util.List;
 public class Viewer {
 
     @Inject
-    private MultiplayerGameManager<Player> gameManager;
+    private final GraphicEntityModule graphicEntityModule;
     @Inject
-    private GraphicEntityModule graphicEntityModule;
+    private final TooltipModule tooltips;
     @Inject
-    private TooltipModule tooltips;
-    @Inject
-    private ToggleModule toggleModule;
+    private final ToggleModule toggleModule;
 
     private final Group group;
     private final HashMap<Integer, Sprite> players = new HashMap<>();
     private final HashMap<Coordinate, Sprite> movesBoard = new HashMap<>();
     private final HashMap<EmptyBarrier, Sprite> emptyBarriers = new HashMap<>();
-    private ArrayList<Text> playerBarriersUI = new ArrayList<>();
+    private final ArrayList<Text> playerBarriersUI = new ArrayList<>();
 
     public Viewer(GraphicEntityModule graphicEntityModule, TooltipModule tooltips, ToggleModule toggleModule) {
         this.graphicEntityModule = graphicEntityModule;
@@ -57,7 +54,7 @@ public class Viewer {
                 }
                 drawTile(i, j, tile);
 
-                // Setup the "moves" tiles.
+                // Set up the "moves" tiles.
                 drawMoveTile(i,j,0);
                 drawMoveTile(i,j,1);
 
@@ -178,8 +175,7 @@ public class Viewer {
      * @param i - Vertical position.
      * @param j - Horizontal position.
      */
-    public Sprite drawTile(int i, int j, String tileName) {
-        //String tileName = Constants.TILE_SPRITE;
+    public void drawTile(int i, int j, String tileName) {
         int z_TILES = 5;
         Sprite tile = createSprite(tileName, j * Constants.CELL_SIZE + (j * Constants.BARRIER_SIZE), i * Constants.CELL_SIZE + i * Constants.BARRIER_SIZE, z_TILES, 0);
         group.add(tile);
@@ -189,7 +185,6 @@ public class Viewer {
         tooltips.setTooltipText(tooltipTile, String.format("X: %d\nY: %d", j, i));
         toggleModule.displayOnToggleState(tooltipTile, "debug", true);
         group.add(tooltipTile);
-        return tile;
     }
 
 
@@ -224,7 +219,7 @@ public class Viewer {
         if (dir.equals(Constants.Orientation.HOR)) {
             barrierI -= 1;
         }
-        ;
+
         emptyBarriers.put(new EmptyBarrier(barrierI, j, dir), tooltipsBarrier);
         tooltips.setTooltipText(tooltipsBarrier, String.format("Barrier\nX: %d\nY: %d\nOrientation: %s", j, barrierI, orientation));
         group.add(tooltipsBarrier);
@@ -254,7 +249,7 @@ public class Viewer {
         int x1 = isVert ? baseX + Constants.CELL_SIZE : baseX;
         int y1 = isVert ? baseY : baseY + Constants.CELL_SIZE;
 
-        // Second segment continues 1 step down (vert) or 1 step right (horiz)
+        // Second segment continues 1 step down (vert) or 1 step right (hor)
         int step = Constants.CELL_SIZE + Constants.BARRIER_SIZE;
         int x2 = isVert ? x1 : x1 + step;
         int y2 = isVert ? y1 + step : y1;

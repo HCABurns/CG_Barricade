@@ -2,21 +2,7 @@
 import java.util.*;
 
 /**
- * Beatable Quoridor AI for CodinGame.
- *
- * Strategy (intentionally weak, no lookahead / minimax):
- *   - Movement: pure greedy shortest-path (BFS distance-to-goal map), ties broken randomly.
- *   - Walls: myopic single-wall evaluation only (tries every legal wall, picks the one that
- *            hurts the opponent's path the most relative to its own), used only sometimes
- *            (WALL_CHANCE) and only when the opponent isn't clearly behind (RACE_MARGIN).
- *
- * Tune WALL_CHANCE / RACE_MARGIN / MIN_WALL_GAIN below to adjust difficulty.
- *
- * Protocol notes (see referee):
- *   - All coordinates exchanged with the referee are grid coords "x y" (x = column, y = row).
- *   - A straight jump over an adjacent opponent is requested by sending the true landing
- *     square two cells away directly (this relies on the fixed Board.canMoveJump).
- *   - Diagonal jumps are requested by sending the true diagonal landing square directly.
+ * AI GENERATED - Beatable.
  */
 public class Agent1 {
 
