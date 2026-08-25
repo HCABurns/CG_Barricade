@@ -1,6 +1,7 @@
 from collections import deque
 import sys
 from time import time
+from random import choice
 
 # Constants.
 BARRIER = -2
@@ -104,14 +105,13 @@ class Board():
 
     def possibleBarriers(self):
         result, seen = [], set()
-        for y, x in (p1.getGridPosition(), p2.getGridPosition()):
-            for i in range(max(0, y - 5), min(y + 5, self.height - 1)):
-                for j in range(max(0, x - 5), min(x + 5, self.width - 1)):
-                    for ori in (HORIZONTAL, VERTICAL):
-                        if (i, j, ori) not in seen:
-                            seen.add((i, j, ori))
-                            if self.isPossibleBarrier(i, j, ori):
-                                result.append((i, j, ori))
+        for i in range(0, self.height - 1):
+            for j in range(0, self.width - 1):
+                for ori in (HORIZONTAL, VERTICAL):
+                    if (i, j, ori) not in seen:
+                        seen.add((i, j, ori))
+                        if self.isPossibleBarrier(i, j, ori):
+                            result.append((i, j, ori))
         return result
 
     def movePlayer(self, player:Player, coordinates: list[int]):
@@ -210,30 +210,36 @@ def parseAction(action):
 
 def bestAction(me, opponent):
     baseOppDist = board.shortestPath(opponent)
-    best = (float("-inf"), None)
+    best_score = float("-inf")
+    candidates = []
 
-    # Candidate moves
     for i, j in board.possibleMoves(me):
         newMyDist = board.shortestPathFrom(i, j, me.goalZone)
         score = baseOppDist - newMyDist
-        if score > best[0]:
-            best = (score, ("MOVE", (j, i)))
+        if score > best_score:
+            best_score = score
+            candidates = [("MOVE", (j, i))]
+        elif score == best_score:
+            candidates.append(("MOVE", (j, i)))
 
-    # Candidate barriers
     if me.getBarriersRemaining() > 0:
-        barrierCost = 0.6 if me.getBarriersRemaining() <= 3 else -0.6
-
+        barrierBonus = 0.6 if me.getBarriersRemaining() > 3 else -2
         for i, j, ori in board.possibleBarriers():
             board.changeBarrier(i, j, ori, BARRIER)
             newMyDist = board.shortestPath(me)
             newOppDist = board.shortestPath(opponent)
             board.changeBarrier(i, j, ori, EMPTY)
+            if newOppDist <= baseOppDist:
+                continue
 
-            score = (newOppDist - newMyDist) - barrierCost
-            if score > best[0]:
-                best = (score, ("BARRIER", (i, j, ori)))
+            score = (newOppDist - newMyDist) + barrierBonus
+            if score > best_score:
+                best_score = score
+                candidates = [("BARRIER", (i, j, ori))]
+            elif score == best_score:
+                candidates.append(("BARRIER", (i, j, ori)))
 
-    return best
+    return choice(candidates)
 
 
 def err(string):
@@ -263,7 +269,7 @@ while True:
             board.changeBarrier(*action[2], action[1], BARRIER)
             p2.useBarrier()
 
-    score, move = bestAction(p1, p2)
+    move = bestAction(p1, p2)
     if move[0] == "MOVE":
         print(f"MOVE {(move[1][0])//2} {(move[1][1])//2}")
         board.movePlayer(p1, [move[1][1], move[1][0]])
